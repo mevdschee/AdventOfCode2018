@@ -1,4 +1,4 @@
-lines = File.readlines('input')
+lines = File.readlines('input').map(&:chomp)
 counts = { 2 => 0, 3 => 0 }
 lines.each do |_line|
   counts.each do |_count, _|
