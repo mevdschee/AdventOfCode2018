@@ -30,28 +30,34 @@ height = field.length
 def neighbours(field, _node, width, height)
   neighbours = []
   %i[up down left right].each do |_direction|
+    _x = _node[:x]
+    _y = _node[:y]
+
     case _direction
     when :left
-      _neighbour = { x: _node[:x] - 1, y: _node[:y] }
+      _neighbour = { x: _x - 1, y: _y }
     when :right
-      _neighbour = { x: _node[:x] + 1, y: _node[:y] }
+      _neighbour = { x: _x + 1, y: _y }
     when :up
-      _neighbour = { x: _node[:x], y: _node[:y] - 1 }
+      _neighbour = { x: _x, y: _y - 1 }
     when :down
-      _neighbour = { x: _node[:x], y: _node[:y] + 1 }
+      _neighbour = { x: _x, y: _y + 1 }
     end
 
-    next if _neighbour[:x] < 0 || _neighbour[:x] >= width || _neighbour[:y] < 0 || _neighbour[:y] >= height
+    _nx = _neighbour[:x]
+    _ny = _neighbour[:y]
+
+    next if _nx < 0 || _nx >= width || _ny < 0 || _ny >= height
 
     case _direction
     when :left
-      next if !field[_node[:y]][_node[:x]][:left] || !field[_neighbour[:y]][_neighbour[:x]][:right]
+      next if !field[_y][_x][:left] || !field[_ny][_nx][:right]
     when :right
-      next if !field[_node[:y]][_node[:x]][:right] || !field[_neighbour[:y]][_neighbour[:x]][:left]
+      next if !field[_y][_x][:right] || !field[_ny][_nx][:left]
     when :up
-      next if !field[_node[:y]][_node[:x]][:up] || !field[_neighbour[:y]][_neighbour[:x]][:down]
+      next if !field[_y][_x][:up] || !field[_ny][_nx][:down]
     when :down
-      next if !field[_node[:y]][_node[:x]][:down] || !field[_neighbour[:y]][_neighbour[:x]][:up]
+      next if !field[_y][_x][:down] || !field[_ny][_nx][:up]
     end
 
     neighbours << _neighbour
