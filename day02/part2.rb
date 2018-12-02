@@ -1,7 +1,7 @@
-lines = File.readlines('input').map(&:chomp).map(&:split)
+lines = File.readlines('input')
 common = ''
-lines.product(lines).map do |_line1, _line2|
-  common = _line1.zip(_line2).map { |a, b| a if a == b }
-  break if common.length == _line1.length - 1
+lines.product(lines).map do |s1, s2|
+  common = s1.split('').zip(s2.split('')).map { |c1, c2| a if c1 == c2 }.join('')
+  break if common.length == s1.length - 1
 end
 puts common
