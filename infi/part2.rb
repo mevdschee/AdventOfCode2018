@@ -27,6 +27,7 @@ end
 width = field[0].length
 height = field.length
 
+# find valid neighbours
 def neighbours(field, _node, width, height)
   neighbours = []
   %i[up down left right].each do |_direction|
@@ -81,20 +82,6 @@ def rotate_field(field, distance, _width, _height)
   field
 end
 
-def print_field(field, tiles)
-  lookup = tiles.invert
-  field.each_index do |_y|
-    field[_y].each_index do |_x|
-      print lookup[field[_y][_x]]
-    end
-    puts
-  end
-end
-
-def print_nodes(nodes)
-  puts nodes.join(',')
-end
-
 def rotate_nodes(nodes, distance, _width, _height)
   return nodes if distance == 0
 
@@ -111,17 +98,13 @@ def rotate_nodes(nodes, distance, _width, _height)
   nodes
 end
 
-# flood
+# flood search
 distance = 0
 _nodes = [{ x: 0, y: 0 }]
 _target = { x: width - 1, y: height - 1 }
 until _nodes.include?(_target)
-  # print_field(field, tiles)
   field = rotate_field(field, distance, width, height)
-  # print_field(field, tiles)
-  # print_nodes(_nodes)
   _nodes = rotate_nodes(_nodes, distance, width, height)
-  # print_nodes(_nodes)
   _next = []
   _nodes.each do |_node|
     neighbours(field, _node, width, height).each do |_neighbour|

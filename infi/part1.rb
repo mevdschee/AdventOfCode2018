@@ -27,6 +27,7 @@ end
 width = field[0].length
 height = field.length
 
+# find valid neighbours
 def neighbours(field, _node, width, height)
   neighbours = []
   %i[up down left right].each do |_direction|
@@ -65,7 +66,7 @@ def neighbours(field, _node, width, height)
   neighbours
 end
 
-# flood
+# flood search
 distance = 0
 _nodes = [{ x: 0, y: 0 }]
 _seen = {}
