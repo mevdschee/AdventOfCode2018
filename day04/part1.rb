@@ -12,10 +12,7 @@ lines.sort.each do |_line|
   end
   start = min if _line.include? 'falls asleep'
   next unless _line.include? 'wakes up'
-
-  (start...min).each do |i|
-    guards[id][i] += 1
-  end
+  (start...min).each { |i| guards[id][i] += 1 }
 end
 id = guards.max_by { |_, v| v.values.sum }[0]
 min = guards[id].max_by { |_, v| v }[0]
