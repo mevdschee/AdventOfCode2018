@@ -1,7 +1,7 @@
 lines = File.readlines('input')
 time_re = /\[\d+\-\d+\-\d+ \d+:(\d+)\]/
 begin_re = /Guard #(\d+)/
-guards = {}, start = 0, id = 0
+guards = {}; start = 0; id = 0
 lines.sort.each do |_line|
   min = _line.match(time_re).to_a[1].to_i
   if _line.include? 'begins shift'
