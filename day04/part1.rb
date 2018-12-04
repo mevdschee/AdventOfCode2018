@@ -1,7 +1,4 @@
 lines = File.readlines('input')
-# [1518-06-25 23:58] Guard #1069 begins shift
-# [1518-07-09 00:47] wakes up
-# [1518-10-04 00:46] falls asleep
 time_re = /\[\d+\-\d+\-\d+ \d+:(\d+)\]/
 begin_re = /Guard #(\d+)/
 guards = {}
