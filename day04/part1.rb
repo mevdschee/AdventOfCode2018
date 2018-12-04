@@ -20,6 +20,6 @@ lines.sort.each do |_line|
     guards[id][i] += 1
   end
 end
-id = guards.map { |_k, v| [_k, v.values.sum] }.max_by { |_k, v| v }[0]
-min = guards[id].max_by { |_k, v| v }[0]
+id = guards.map { |_, v| [_, v.values.sum] }.max_by { |_, v| v }[0]
+min = guards[id].max_by { |_, v| v }[0]
 puts id * min
