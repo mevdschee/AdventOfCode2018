@@ -1,7 +1,4 @@
 lines = File.readlines('input')
-# [1518-06-25 23:58] Guard #1069 begins shift
-# [1518-07-09 00:47] wakes up
-# [1518-10-04 00:46] falls asleep
 time_re = /\[\d+\-\d+\-\d+ \d+:(\d+)\]/
 begin_re = /Guard #(\d+)/
 guards = {}
@@ -20,6 +17,6 @@ lines.sort.each do |_line|
     guards[id][i] += 1
   end
 end
-id = guards.map { |_, v| [_, v.values.max|| 0] }.max_by { |_, v| v }[0]
+id = guards.map { |_, v| [_, v.values.max || 0] }.max_by { |_, v| v }[0]
 min = guards[id].max_by { |_, v| v }[0]
 puts id * min
