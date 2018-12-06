@@ -10,6 +10,8 @@ lines.each_with_index do |_line, _point|
   max = _coords.max if _coords.max>max
 end
 
+points = active.clone
+
 while active.length>0 do
   changes = {}
   next_active = []
@@ -36,12 +38,12 @@ while active.length>0 do
   field.merge!(changes)
 end
 
-counts = Hash.new(0)
-field.each do |_coords, _point|
-  counts[_point] += 1
+count = 0
+field.each do |_c,_|
+  _distance = points.reduce(0) do |_total,_p| 
+    _total + (_p[0]-_c[0]).abs + (_p[1]-_c[1]).abs
+  end
+  count+=1 if _distance<10000
 end
 
-infinites = passive.map { |_coords| field[_coords] }
-infinites.uniq.each { |_point| counts[_point]=-1 }
-
-puts counts.values.max
+puts count
