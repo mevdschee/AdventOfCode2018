@@ -1,47 +1,24 @@
 lines = File.readlines('input')
-active = []
-passive = []
-field = {}
+points = []
 max = 0
 lines.each_with_index do |_line, _point|
   _coords = _line.split(',').map(&:to_i)
-  active << _coords
-  field[_coords] = _point
+  points << _coords
   max = _coords.max if _coords.max>max
 end
 
-while active.length>0 do
-  changes = {}
-  next_active = []
-  active.each do |_coords|
-    if _coords[0]<0 || _coords[0]>max || _coords[1]<0 || _coords[1]>max
-      passive << _coords
-    else
-      _point = field[_coords]
-      [[0, 1], [1, 0], [0, -1], [-1, 0]].each do |_move|
-        _next = [_coords[0] + _move[0], _coords[1] + _move[1]]
-        next if field[_next]
-        if changes[_next]!=_point
-          if changes[_next]
-            changes[_next] = -1
-          else
-            changes[_next] = _point
-          end 
-        end
-        next_active << _next
-      end
-    end
-  end
-  active = next_active.uniq
-  field.merge!(changes)
-end
-
 counts = Hash.new(0)
-field.each do |_coords, _point|
-  counts[_point] += 1
+infinites = Hash.new(0)
+values = (0..max).to_a
+values.product(values).each do |_c|
+  _distances = points.map.with_index do |_p,_i| 
+    [_i, (_p[0]-_c[0]).abs + (_p[1]-_c[1]).abs]
+  end.to_h
+  _distance = _distances.values.min
+  _closest = _distances.select { |_,_v| _v==_distance }.keys
+  _point = _closest[0]
+  counts[_point] += 1 if (_closest.count==1)
+  infinites[_point] = -1 if _c[0]==0 || _c[1]==0 || _c[0]==max || _c[1]==max
 end
 
-infinites = passive.map { |_coords| field[_coords] }
-infinites.uniq.each { |_point| counts[_point]=-1 }
-
-puts counts.values.max
+puts counts.merge(infinites).values.max
