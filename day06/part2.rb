@@ -1,11 +1,6 @@
 lines = File.readlines('input')
-points = []
-max = 0
-lines.each_with_index do |_line, _point|
-  _coords = _line.split(',').map(&:to_i)
-  points << _coords
-  max = _coords.max if _coords.max>max
-end
+points = lines.map { |_line| _line.split(',').map(&:to_i) }
+max = points.max_by { |_coords| _coords.max }.max
 
 count = 0
 values = (0..max).to_a
