@@ -16,11 +16,11 @@ end
 _order = []
 _workers = {}
 _worker_count = 5
-_seconds_added = 60
-_count=0
+_seconds_added = 61
+_time=0
 while _next.count>0 || _workers.keys.count>0
   _worker_count.times do
-    if _workers.keys.count < 2
+    if _workers.keys.count < _worker_count
       _ready = (_next - _workers.keys).select { |_root| (reverse[_root] - _order).count==0 }
       if _ready.count>0
         _expand = _ready.sort.first
@@ -37,7 +37,7 @@ while _next.count>0 || _workers.keys.count>0
     _workers.delete(_expand)  
     _next.uniq!
   end
-  _count+=1
+  _time+=1
 end
 
-puts _count
+puts _time
