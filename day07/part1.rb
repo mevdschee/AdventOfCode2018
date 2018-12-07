@@ -1,4 +1,4 @@
-lines = File.readlines('input.test')
+lines = File.readlines('input')
 forward = Hash.new { |h, k| h[k] = [] }
 reverse = Hash.new { |h, k| h[k] = [] }
 lines.each do |_line|
@@ -15,14 +15,16 @@ def find_root(reverse)
   _root
 end
 
-def find_order(_root, forward)
-  _order = []
-  _order << _root
-  forward[_root].each do |_curr|
-    _order += find_order(_curr, forward)
+def find_order(_order, _root, forward, reverse)
+  required = reverse[_root] - _order
+  if required.count==0
+    _order << _root
+    forward[_root].each do |_curr|
+      find_order(_order, _curr, forward, reverse)
+    end
   end
-  _order
 end
 
-_root = find_root(reverse)
-p find_order(_root, forward)
+_order = []
+find_order(_order, find_root(reverse), forward, reverse)
+puts _order.join('')
