@@ -17,4 +17,4 @@ def collect_meta(_node)
 end
 
 root = parse(numbers)
-p collect_meta(root).sum
+puts collect_meta(root).sum

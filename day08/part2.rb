@@ -24,4 +24,4 @@ def parse(_numbers)
 end
 
 root = parse(numbers)
-p root[:value]
+puts root[:value]
