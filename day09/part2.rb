@@ -29,6 +29,7 @@ class DoubleLinkedCircularList
         end
       end
     end
+    self
   end
 
   def insert(value)
@@ -44,18 +45,23 @@ class DoubleLinkedCircularList
     new_node.next.previous = new_node
     @current = new_node
     @initial = new_node if @initial.nil?
+    self
   end
 
   def delete
-    return if @current.nil?
+    return self if @current.nil?
 
     previous_node = @current.previous
     previous_node.next = @current.next
-    @current = if @current == @current.next
-                 nil
-               else
-                 @current.next
-               end
+    previous_node.next.previous = previous_node
+    if @current == @current.next
+      @current = nil
+      @initial = nil
+    else
+      @initial = @current.previous if @initial == @current
+      @current = @current.previous
+    end
+    self
   end
 
   def read
@@ -71,11 +77,8 @@ class DoubleLinkedCircularList
     node = @initial
     unless node.nil?
       loop do
-        str += if node == @current
-                 '_' + node.to_s
-               else
-                 node.to_s
-              end
+        str += node.to_s
+        str += '*' if node == @current
         node = node.next
         break if node == @initial
 
@@ -101,6 +104,7 @@ lines.each do |_line|
       marbles.step(-7)
       scores[player] += _marble + marbles.read
       marbles.delete
+      marbles.step(1)
     else
       marbles.step(1)
       marbles.insert(_marble)
