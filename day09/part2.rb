@@ -22,10 +22,10 @@ class DoublyLinkedCircularList
     @length = 0
   end
 
-  def rotate(count)
+  def rotate(steps)
     if @head
-      count.abs.times do
-        @head = if count < 0
+      steps.abs.times do
+        @head = if steps < 0
                   @head.previous
                 else
                   @head.next
