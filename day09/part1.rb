@@ -58,7 +58,7 @@ class DoubleLinkedCircularList
       @current = nil
       @initial = nil
     else
-      @initial = @current.previous if @initial == @current
+      @initial = @current.next if @initial == @current
       @current = @current.previous
     end
     self
