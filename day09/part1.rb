@@ -23,13 +23,13 @@ class DoublyLinkedCircularList
   end
 
   def rotate(steps)
-    if @head
-      steps.abs.times do
-        @head = if steps < 0
-                  @head.previous
-                else
-                  @head.next
-        end
+    return self if @head.nil?
+
+    steps.abs.times do
+      @head = if steps < 0
+                @head.previous
+              else
+                @head.next
       end
     end
     self
