@@ -1,8 +1,11 @@
 class DoubleLinkedCircularList
+  attr_reader :length
+
   class Node
     attr_accessor :previous
     attr_accessor :next
     attr_reader   :value
+
     def initialize(_value)
       @previous = nil
       @next = nil
@@ -17,6 +20,7 @@ class DoubleLinkedCircularList
   def initialize
     @initial = nil
     @current = nil
+    @length = 0
   end
 
   def step(count)
@@ -45,6 +49,7 @@ class DoubleLinkedCircularList
     new_node.next.previous = new_node
     @current = new_node
     @initial = new_node if @initial.nil?
+    @length += 1
     self
   end
 
@@ -61,6 +66,7 @@ class DoubleLinkedCircularList
       @initial = @current.next if @initial == @current
       @current = @current.previous
     end
+    @length -= 1
     self
   end
 
