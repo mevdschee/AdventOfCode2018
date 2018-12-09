@@ -1,4 +1,4 @@
-class DoubleLinkedCircularList
+class DoublyLinkedCircularList
   attr_reader :length
 
   class Node
@@ -96,7 +96,7 @@ lines.each do |_line|
   player_count = _line.match(/(\d+) players/).to_a[1].to_i
   last_marble = _line.match(/(\d+) points/).to_a[1].to_i
 
-  marbles = DoubleLinkedCircularList.new
+  marbles = DoublyLinkedCircularList.new
   marbles.append(0)
   scores = Hash.new(0)
   (1..last_marble * 100).each do |_marble|
