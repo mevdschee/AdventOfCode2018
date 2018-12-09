@@ -24,6 +24,7 @@ assert_equal('[0,1*]', DoubleLinkedCircularList.new.insert(0).insert(1).insert(2
 assert_equal('[0*]', DoubleLinkedCircularList.new.insert(0).insert(1).insert(2).delete.delete.step(-1).to_s)
 assert_equal('[0*]', DoubleLinkedCircularList.new.insert(0).insert(1).insert(2).delete.delete.step(1).to_s)
 assert_equal('[0,1*,2]', DoubleLinkedCircularList.new.insert(0).insert(1).insert(2).step(-6).step(5).to_s)
+assert_equal('[0,1,2*]', DoubleLinkedCircularList.new.insert(0).insert(2).step(-1).insert(1).step(1).to_s)
 assert_equal(nil, DoubleLinkedCircularList.new.read)
 assert_equal(0, DoubleLinkedCircularList.new.insert(0).read)
 assert_equal(1, DoubleLinkedCircularList.new.insert(0).insert(1).read)
