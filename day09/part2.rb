@@ -1,4 +1,19 @@
 class DoubleLinkedCircularList
+  class Node
+    attr_accessor :previous
+    attr_accessor :next
+    attr_reader   :value
+    def initialize(_value)
+      @previous = nil
+      @next = nil
+      @value = _value
+    end
+
+    def to_s
+      @value.to_s
+    end
+  end
+
   def initialize
     @initial = nil
     @current = nil
@@ -69,21 +84,6 @@ class DoubleLinkedCircularList
     end
     str += ']'
     str
-  end
-end
-
-class Node
-  attr_accessor :previous
-  attr_accessor :next
-  attr_reader   :value
-  def initialize(_value)
-    @previous = nil
-    @next = nil
-    @value = _value
-  end
-
-  def to_s
-    @value.to_s
   end
 end
 
