@@ -18,75 +18,70 @@ class DoubleLinkedCircularList
   end
 
   def initialize
-    @initial = nil
-    @current = nil
+    @head = nil
     @length = 0
   end
 
-  def step(count)
-    if @current
+  def rotate(count)
+    if @head
       count.abs.times do
-        @current = if count < 0
-                     @current.previous
-                   else
-                     @current.next
+        @head = if count < 0
+                  @head.previous
+                else
+                  @head.next
         end
       end
     end
     self
   end
 
-  def insert(value)
-    new_node = Node.new(value)
-    if @current.nil?
-      new_node.previous = new_node
-      new_node.next = new_node
+  def append(value)
+    node = Node.new(value)
+    if @head.nil?
+      node.previous = node
+      node.next = node
     else
-      new_node.previous = @current
-      new_node.next = @current.next
+      node.previous = @head
+      node.next = @head.next
     end
-    new_node.previous.next = new_node
-    new_node.next.previous = new_node
-    @current = new_node
-    @initial = new_node if @initial.nil?
+    node.previous.next = node
+    node.next.previous = node
+    @head = node
     @length += 1
     self
   end
 
-  def delete
-    return self if @current.nil?
+  def remove
+    return self if @head.nil?
 
-    previous_node = @current.previous
-    previous_node.next = @current.next
-    previous_node.next.previous = previous_node
-    if @current == @current.next
-      @current = nil
-      @initial = nil
-    else
-      @initial = @current.next if @initial == @current
-      @current = @current.previous
-    end
+    node = @head.previous
+    node.next = @head.next
+    node.next.previous = node
+    @head = if @head == @head.next
+              nil
+            else
+              @head.previous
+            end
     @length -= 1
     self
   end
 
   def read
-    if @current.nil?
+    if @head.nil?
       nil
     else
-      @current.value
+      @head.value
     end
   end
 
   def to_s
     str = '['
-    node = @initial
+    node = @head
     unless node.nil?
       loop do
-        str += node.to_s
-        str += '*' if node == @current
         node = node.next
-        break if node == @initial
+        str += node.to_s
+        break if node == @head
 
         str += ','
       end
@@ -102,18 +97,18 @@ lines.each do |_line|
   last_marble = _line.match(/(\d+) points/).to_a[1].to_i
 
   marbles = DoubleLinkedCircularList.new
-  marbles.insert(0)
+  marbles.append(0)
   scores = Hash.new(0)
   (1..last_marble).each do |_marble|
     player = (_marble - 1) % player_count
     if _marble % 23 == 0
-      marbles.step(-7)
+      marbles.rotate(-7)
       scores[player] += _marble + marbles.read
-      marbles.delete
-      marbles.step(1)
+      marbles.remove
+      marbles.rotate(1)
     else
-      marbles.step(1)
-      marbles.insert(_marble)
+      marbles.rotate(1)
+      marbles.append(_marble)
     end
     # puts "#{player + 1} #{marbles}"
   end
