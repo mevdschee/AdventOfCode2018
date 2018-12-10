@@ -1,4 +1,4 @@
-lines = File.readlines('input.2')
+lines = File.readlines('input')
 points = lines.map { |_line| _line.scan(/(-?[0-9]+)/).to_a.flatten.map(&:to_i) }
 
 # loop while bbox shrinks
@@ -22,7 +22,7 @@ bbox = (0..3).to_a.map { |i| points.max_by { |c| (i < 2 ? -1 : 1) * c[i % 2] }[i
 # find letters
 field = []
 (bbox[1]..bbox[3]).each do |y|
-  str = ' '
+  str = '.'
   (bbox[0]..bbox[2]).each do |x|
     str += (coords[[x, y]] ? '#' : '.')
   end
