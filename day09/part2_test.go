@@ -71,7 +71,6 @@ func TestAppendThreeAndRemove(t *testing.T) {
 	}
 }
 
-
 func TestAppendThreeAndRemoveTwiceAndRotateNegative(t *testing.T) {
 	list := NewDoublyLinkedCircularList()
 	list.Append(0)
