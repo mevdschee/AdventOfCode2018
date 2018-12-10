@@ -113,12 +113,13 @@ lines.each do |_line|
     # puts "#{player + 1} #{marbles}"
   end
 
+  score = scores.values.max
+
   expected = _line.match(/high score is (\d+)/).to_a[1].to_i if _line.include? 'high score is'
   if expected
-    score = scores.values.max
     puts "score: #{score}, expected: #{expected}"
     # exit
   end
 
-  puts scores.values.max
+  puts score
 end
