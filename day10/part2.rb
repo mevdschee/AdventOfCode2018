@@ -14,15 +14,4 @@ loop do
   time += 1
 end
 
-# reverse one step
-points.map! { |pn| [pn[0] - pn[2], pn[1] - pn[3]] }
-coords = Hash[points.collect { |point| [point, true] }]
-bbox = (0..3).to_a.map { |i| points.max_by { |c| (i < 2 ? -1 : 1) * c[i % 2] }[i % 2] }
-
-# print letters
-(bbox[1]..bbox[3]).each do |y|
-  (bbox[0]..bbox[2]).each do |x|
-    print (coords[[x, y]] ? '#' : ' ')
-  end
-  puts
-end
+puts time
