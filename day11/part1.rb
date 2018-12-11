@@ -3,15 +3,12 @@ input = IO.read('input').chomp.to_i
 size = 300
 
 field = {}
-
-coordinates = (1..size).to_a.product((1..size).to_a)
-
-coordinates.each do |c|
-  _x, _y = c
-  rid = _x + 10
-  num = (rid * _y + input) * rid
-  n = (num / 100) % 10 - 5
-  field[[_x, _y]] = n
+(1..size).each do |_x|
+  (1..size).each do |_y|
+    rid = _x + 10
+    num = (rid * _y + input) * rid
+    field[[_x, _y]] = (num / 100) % 10 - 5
+  end
 end
 
 coordinates = (1..size - 3).to_a.product((1..size - 3).to_a)

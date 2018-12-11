@@ -3,30 +3,34 @@ input = IO.read('input').chomp.to_i
 size = 300
 
 field = {}
+(1..size).each do |_x|
+  (1..size).each do |_y|
+    rid = _x + 10
+    num = (rid * _y + input) * rid
+    field[[_x, _y]] = (num / 100) % 10 - 5
+  end
+end
 
-coordinates = (1..size).to_a.product((1..size).to_a)
-
-coordinates.each do |c|
-  _x, _y = c
-  rid = _x + 10
-  num = (rid * _y + input) * rid
-  n = (num / 100) % 10 - 5
-  field[[_x, _y]] = n
+summed = {}
+(1..size).each do |_x|
+  col = 0
+  (1..size).each do |_y|
+    col += field[[_x, _y]]
+    left = (summed[[_x - 1, _y]] || 0)
+    summed[[_x, _y]] = left + col
+  end
 end
 
 threads = []
-(1..16).each do |_s|
+(1..size).each do |_s|
   threads << Thread.new do
-    coordinates = (1..size - _s).to_a.product((1..size - _s).to_a)
-    square = (0..._s).to_a.product((0..._s).to_a)
-
-    max = coordinates.map do |c|
-      [c + [_s], square.map do |d|
-        field[[c[0] + d[0], c[1] + d[1]]]
-      end.reduce(:+)]
-    end.max_by { |_k, v| v }
-
-    Thread.current['max'] = max
+    coordinates = (0..size - _s).to_a.product((0..size - _s).to_a)
+    Thread.current['max'] = coordinates.map do |_c|
+      _x, _y = _c
+      sum = (summed[[_x, _y]] || 0) + (summed[[_x + _s, _y + _s]] || 0)
+      sum -= (summed[[_x + _s, _y]] || 0) + (summed[[_x, _y + _s]] || 0)
+      [[_x + 1, _y + 1, _s], sum]
+    end.to_h.max_by { |_k, v| v }
   end
 end
 
