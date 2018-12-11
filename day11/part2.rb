@@ -1,6 +1,6 @@
 input = IO.read('input').chomp.to_i
 
-size = 5
+size = 300
 
 field = {}
 
@@ -14,18 +14,24 @@ coordinates.each do |c|
   field[[_x, _y]] = n
 end
 
-coordinates = (1..size - 3).to_a.product((1..size - 3).to_a)
-square = (0...3).to_a.product((0...3).to_a)
-sizes = (1..size - 3).to_a
+threads = []
+(1..16).each do |_s|
+  threads << Thread.new do
+    coordinates = (1..size - _s).to_a.product((1..size - _s).to_a)
+    square = (0..._s).to_a.product((0..._s).to_a)
 
-sums = sizes.map do |size|
-  [coordinates.map do |c|
-    [c, square.map do |d|
-      field[[c[0] + d[0], c[1] + d[1]]]
-    end.sum]
-  end, size]
+    max = coordinates.map do |c|
+      [c + [_s], square.map do |d|
+        field[[c[0] + d[0], c[1] + d[1]]]
+      end.reduce(:+)]
+    end.max_by { |_k, v| v }
+
+    Thread.current['max'] = max
+  end
 end
 
-p sums
+threads.each(&:join)
 
-puts sums.max_by { |_k, v| v }[0].join(',')
+max = threads.max_by { |_t| _t['max'][1] }['max']
+
+puts max[0].join(',')

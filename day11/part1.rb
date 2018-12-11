@@ -17,10 +17,10 @@ end
 coordinates = (1..size - 3).to_a.product((1..size - 3).to_a)
 square = (0...3).to_a.product((0...3).to_a)
 
-sums = coordinates.map do |c|
+max = coordinates.map do |c|
   [c, square.map do |d|
     field[[c[0] + d[0], c[1] + d[1]]]
-  end.sum]
-end
+  end.reduce(:+)]
+end.max_by { |_k, v| v }
 
-puts sums.max_by { |_k, v| v }[0].join(',')
+puts max[0].join(',')
