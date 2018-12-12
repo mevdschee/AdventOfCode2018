@@ -54,12 +54,7 @@ func main() {
 						sum -= summed[(x+s)*1000+y] + summed[x*1000+(y+s)]
 					}
 					if result == nil || sum > result.sum {
-						result = &Result{
-							x:    x + 1,
-							y:    y + 1,
-							size: s,
-							sum:  sum,
-						}
+						result = &Result{x + 1, y + 1, s, sum}
 					}
 				}
 			}
