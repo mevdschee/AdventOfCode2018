@@ -22,20 +22,25 @@ summed = {}
 end
 
 threads = []
-(1..size).each do |_s|
+(0..size).each do |_s|
   threads << Thread.new do
-    coordinates = (0..size - _s).to_a.product((0..size - _s).to_a)
-    Thread.current['max'] = coordinates.map do |_c|
-      _x, _y = _c
-      sum = (summed[[_x, _y]] || 0) + (summed[[_x + _s, _y + _s]] || 0)
-      sum -= (summed[[_x + _s, _y]] || 0) + (summed[[_x, _y + _s]] || 0)
-      [[_x + 1, _y + 1, _s], sum]
-    end.to_h.max_by { |_k, v| v }
+    result = nil
+    (0..size - _s).each do |_x|
+      (0..size - _s).each do |_y|
+        sum = 0
+        if _x > 0 && _y > 0
+          sum += summed[[_x, _y]] + summed[[_x + _s, _y + _s]]
+          sum -= summed[[_x + _s, _y]] + summed[[_x, _y + _s]]
+        end
+        result = [[_x + 1, _y + 1, _s], sum] if result.nil? || sum > result[1]
+      end
+    end
+    Thread.current['result'] = result
   end
 end
 
 threads.each(&:join)
 
-max = threads.max_by { |_t| _t['max'][1] }['max']
+best = threads.max_by { |_t| _t['result'][1] }['result']
 
-puts max[0].join(',')
+puts best[0].join(',')
