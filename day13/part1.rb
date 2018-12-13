@@ -1,4 +1,4 @@
-lines = File.readlines('input.test2')
+lines = File.readlines('input')
 dirs = '<^>v'
 
 tracks = {}
@@ -56,7 +56,7 @@ loop do
 
   carts = new_carts
 
-  if true
+  if false
     (0..lines.count).each do |y|
       (0..lines[0].length).each do |x|
         key = y * 1000 + x
@@ -81,3 +81,5 @@ key = collisions.keys.first
 y = key / 1000
 x = key % 1000
 puts "#{x},#{y}"
+
+# not 23,30
