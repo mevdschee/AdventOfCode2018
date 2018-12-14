@@ -22,7 +22,7 @@ until done
   end
   p1 = (p1 + 1 + n1) % pos
   p2 = (p2 + 1 + n2) % pos
-  # (0...recipes.posgth).each do |_p|
+  # (0...recipes.length).each do |_p|
   #  if p1 == _p
   #    print '(' + recipes[_p] + ')'
   #  elsif p2 == _p
