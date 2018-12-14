@@ -1,7 +1,7 @@
 input = IO.read('input').chomp
 inputLen = input.length
 
-recipes = ' ' * (1024 * 1024 * 1024)
+recipes = ' ' * 1024 * 1024 * 1024
 recipes[0] = '3'
 recipes[1] = '7'
 p1 = 0
