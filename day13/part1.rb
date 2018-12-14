@@ -44,7 +44,7 @@ while collision.nil?
       turns += 1
     end
     if carts[y * 1000 + x]
-      collision = y * 1000 + x
+      collision = "#{x},#{y}"
       break
     else
       carts.delete(key)
@@ -68,7 +68,4 @@ while collision.nil?
   # puts
 end
 
-key = collision
-y = key / 1000
-x = key % 1000
-puts "#{x},#{y}"
+puts collision
