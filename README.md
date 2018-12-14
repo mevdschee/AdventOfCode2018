@@ -1,6 +1,6 @@
 # AdventOfCode2018
 
-Advent of Code 2018 puzzle solutions in Python
+Advent of Code 2018 puzzle solutions in Ruby
 
 See: http://adventofcode.com/2018/
 
