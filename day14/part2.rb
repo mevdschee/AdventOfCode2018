@@ -1,18 +1,21 @@
 input = IO.read('input').chomp
+inputLen = input.length
 
-recipes = '37'
+recipes = ' ' * (1024 * 1024 * 1024)
+recipes[0] = '3'
+recipes[1] = '7'
 p1 = 0
 p2 = 1
 
 len = 2
 done = false
-while !done
+until done
   n1 = recipes[p1].to_i
   n2 = recipes[p2].to_i
   (n1 + n2).to_s.each_char do |_n|
     recipes[len] = _n
-    len+=1
-    if recipes[-input.length..-1] == input
+    len += 1
+    if recipes[len - inputLen...len] == input
       done = true
       break
     end
@@ -31,4 +34,4 @@ while !done
   # puts
 end
 
-puts len - input.length
+puts len - inputLen
