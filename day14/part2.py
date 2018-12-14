@@ -13,7 +13,7 @@ while (not done):
   n1 = int(recipes[p1]-ord('0'))
   n2 = int(recipes[p2]-ord('0'))
   sum = str(n1 + n2)
-  for n in num:
+  for n in sum:
     recipes[pos] = n
     pos+=1
     if (recipes[pos-inputLen:pos] == input):
