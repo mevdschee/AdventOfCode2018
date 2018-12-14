@@ -15,9 +15,10 @@ lines.each_with_index do |line, y|
   end
 end
 
-collision = nil
-while collision.nil?
+while carts.count > 1
   carts.keys.sort.each do |key|
+    next unless carts[key]
+
     y = key / 1000
     x = key % 1000
     dir = carts[key][:dir]
@@ -43,32 +44,16 @@ while collision.nil?
       dir += left + turns % 3
       turns += 1
     end
+    carts.delete(key)
     if carts[y * 1000 + x]
-      collision = y * 1000 + x
-      break
+      carts.delete(y * 1000 + x)
     else
-      carts.delete(key)
       carts[y * 1000 + x] = { dir: dir % 4, turns: turns }
     end
   end
-  # (0..lines.count).each do |y|
-  #   (0..lines[0].length).each do |x|
-  #     key = y * 1000 + x
-  #     if collisions[key]
-  #       print 'X'
-  #     elsif carts[key]
-  #       dir = carts[key][:dir]
-  #       print dirs[dir]
-  #     else
-  #       print tracks[key] || ' '
-  #     end
-  #   end
-  #   puts
-  # end
-  # puts
 end
 
-key = collision
+key = carts.keys.first
 y = key / 1000
 x = key % 1000
 puts "#{x},#{y}"
