@@ -12,8 +12,12 @@ done = False
 while (not done):
   n1 = int(recipes[p1]-ord('0'))
   n2 = int(recipes[p2]-ord('0'))
-  sum = str(n1 + n2)
-  for n in sum:
+  sum = n1 + n2
+  if sum<10:
+    num = chr(sum+ord('0'))
+  else
+    num = chr(sum/10+ord('0'))+chr(sum%10+ord('0'))
+  for n in num:
     recipes[pos] = n
     pos+=1
     if (recipes[pos-inputLen:pos] == input):
