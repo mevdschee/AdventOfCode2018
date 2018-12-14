@@ -15,7 +15,7 @@ while (not done):
   sum = n1 + n2
   if sum<10:
     num = chr(sum+ord('0'))
-  else
+  else:
     num = chr(sum/10+ord('0'))+chr(sum%10+ord('0'))
   for n in num:
     recipes[pos] = n
