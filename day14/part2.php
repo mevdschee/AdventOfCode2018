@@ -1,5 +1,5 @@
 <?php
-$input = trim(file_get_contents('input'));
+$input = trim(file_get_contents('input.test2'));
 $inputLen = strlen($input);
 
 $recipes = str_repeat(' ', 1024*1024*1024);
@@ -17,6 +17,8 @@ while (!$done) {
   for($i=0; $i<strlen($sum); $i++) {
     $recipes[$pos] = $sum[$i];
     $pos++;
+    echo substr($recipes,$pos-$inputLen, $inputLen) . " ";
+    echo $input."\n";
     if (substr($recipes,$pos-$inputLen, $inputLen) == $input) {
       $done = true;
       break;
