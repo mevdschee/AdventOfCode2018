@@ -13,9 +13,9 @@ $done = false;
 while (!$done) {
   $n1 = (int)$recipes[$p1];
   $n2 = (int)$recipes[$p2];
-  $str = (string)($n1 + $n2);
-  for($i=0; $i<strlen($str); $i++) {
-    $recipes[$pos] = $str[$i];
+  $sum = (string)($n1 + $n2);
+  for($i=0; $i<strlen($sum); $i++) {
+    $recipes[$pos] = $sum[$i];
     $pos++;
     if (substr($recipes,$pos-$inputLen, $inputLen) == $input) {
       $done = true;
