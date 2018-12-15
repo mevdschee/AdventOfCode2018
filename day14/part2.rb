@@ -1,5 +1,4 @@
 input = IO.read('input').chomp
-input_len = input.length
 
 recipes = '37'
 p1 = 0
@@ -11,7 +10,7 @@ until done
   n2 = recipes[p2].to_i
   (n1 + n2).to_s.each_char do |_n|
     recipes.concat(_n)
-    if recipes[-input_len..-1] == input
+    if recipes[-input.length..-1] == input
       done = true
       break
     end
@@ -30,4 +29,4 @@ until done
   # puts
 end
 
-puts recipes.length - input_len
+puts recipes.length - input.length
