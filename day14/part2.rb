@@ -10,7 +10,7 @@ until done
   n2 = recipes[p2].to_i
   (n1 + n2).to_s.each_char do |_n|
     recipes.concat(_n)
-    if recipes.length > 20_000_000 && recipes[-input.length..-1] == input
+    if recipes[-input.length..-1] == input
       done = true
       break
     end
