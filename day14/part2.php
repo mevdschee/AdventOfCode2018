@@ -17,8 +17,6 @@ while (!$done) {
   for($i=0; $i<strlen($sum); $i++) {
     $recipes[$pos] = $sum[$i];
     $pos++;
-    echo substr($recipes,$pos-$inputLen, $inputLen) . " ";
-    echo $input."\n";
     if (substr($recipes,$pos-$inputLen, $inputLen) == $input) {
       $done = true;
       break;
