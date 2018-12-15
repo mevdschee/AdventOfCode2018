@@ -4,22 +4,20 @@ recipes = '37'
 p1 = 0
 p2 = 1
 
-len = 2
 done = false
-while !done
+until done
   n1 = recipes[p1].to_i
   n2 = recipes[p2].to_i
   (n1 + n2).to_s.each_char do |_n|
-    recipes[len] = _n
-    len+=1
-    if len == input + 10
+    recipes.concat(_n)
+    if recipes.length == input + 10
       done = true
       break
     end
   end
-  p1 = (p1 + 1 + n1) % len
-  p2 = (p2 + 1 + n2) % len
-  # (0...recipes.length).each do |_p|
+  p1 = (p1 + 1 + n1) % recipes.length
+  p2 = (p2 + 1 + n2) % recipes.length
+  # recipes.split('').each_index do |_p|
   #  if p1 == _p
   #    print '(' + recipes[_p] + ')'
   #  elsif p2 == _p
