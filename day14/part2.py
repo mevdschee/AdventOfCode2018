@@ -1,25 +1,20 @@
 input = bytearray(open('input').read().strip(),'UTF-8')
-inputLen = len(input)
 
-recipes = bytearray(b' '*1024*1024*1024)
-recipes[0] = ord('3')
-recipes[1] = ord('7')
+recipes = bytearray(b'37')
 p1 = 0
 p2 = 1
 
-pos = 2
 done = False
 while (not done):
   n1 = int(recipes[p1]-ord('0'))
   n2 = int(recipes[p2]-ord('0'))
   sum = str(n1 + n2)
   for n in sum:
-    recipes[pos] = ord(n)
-    pos+=1
-    if (recipes[pos-inputLen:pos] == input):
+    recipes.append(ord(n))
+    if (recipes[-len(input):] == input):
       done = True
       break
-  p1 = (p1 + 1 + n1) % pos
-  p2 = (p2 + 1 + n2) % pos
+  p1 = (p1 + 1 + n1) % len(recipes)
+  p2 = (p2 + 1 + n2) % len(recipes)
 
-print(pos - inputLen)
+print(len(recipes) - len(input))
