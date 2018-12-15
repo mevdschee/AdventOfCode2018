@@ -6,8 +6,8 @@ p2 = 1
 
 done = False
 while (not done):
-  n1 = int(recipes[p1]-ord('0'))
-  n2 = int(recipes[p2]-ord('0'))
+  n1 = recipes[p1]-ord('0')
+  n2 = recipes[p2]-ord('0')
   for n in str(n1 + n2):
     recipes.append(ord(n))
     if (recipes[-len(input):] == input):
