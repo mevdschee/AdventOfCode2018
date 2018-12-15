@@ -8,8 +8,7 @@ done = False
 while (not done):
   n1 = int(recipes[p1]-ord('0'))
   n2 = int(recipes[p2]-ord('0'))
-  sum = str(n1 + n2)
-  for n in sum:
+  for n in str(n1 + n2):
     recipes.append(ord(n))
     if (recipes[-len(input):] == input):
       done = True
