@@ -28,7 +28,7 @@ func main() {
 		}
 		for _, n := range num {
 			recipes = append(recipes, n + '0')
-			if bytes.Equal(recipes[len(recipes)-1-len(input):len(recipes)-1], input) {
+			if len(recipes) > len(input) && bytes.Equal(recipes[len(recipes)-1-len(input):len(recipes)-1], input) {
 				done = true
 				break
 			}
