@@ -29,7 +29,7 @@ while results.count > 0 || workers.keys.count > 0
     end
   end
   workers.keys.each { |i| workers[i] -= 1 }
-  ready = workers.select { |_k, v| v == 0 }.keys
+  ready = workers.select { |_, v| v == 0 }.keys
   ready.each do |expand|
     order << expand
     results += forward[expand]
