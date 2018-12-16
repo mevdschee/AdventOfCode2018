@@ -15,11 +15,11 @@ tiles = {
 
 # fill field with possible directions
 field = []
-lines.each_index do |_y|
-  field[_y] = []
-  _line = lines[_y].chomp.split('')
-  _line.each_index do |_x|
-    field[_y][_x] = tiles[_line[_x].to_sym].clone
+lines.each_index do |y|
+  field[y] = []
+  line = lines[y].chomp.split('')
+  line.each_index do |x|
+    field[y][x] = tiles[line[x].to_sym].clone
   end
 end
 
@@ -28,48 +28,48 @@ width = field[0].length
 height = field.length
 
 # find valid neighbours
-def neighbours(field, _node, width, height)
+def neighbours(field, node, width, height)
   neighbours = []
-  %i[up down left right].each do |_direction|
-    _x = _node[:x]
-    _y = _node[:y]
+  %i[up down left right].each do |direction|
+    x = node[:x]
+    y = node[:y]
 
-    case _direction
+    case direction
     when :left
-      _neighbour = { x: _x - 1, y: _y }
+      neighbour = { x: x - 1, y: y }
     when :right
-      _neighbour = { x: _x + 1, y: _y }
+      neighbour = { x: x + 1, y: y }
     when :up
-      _neighbour = { x: _x, y: _y - 1 }
+      neighbour = { x: x, y: y - 1 }
     when :down
-      _neighbour = { x: _x, y: _y + 1 }
+      neighbour = { x: x, y: y + 1 }
     end
 
-    _nx = _neighbour[:x]
-    _ny = _neighbour[:y]
+    nx = neighbour[:x]
+    ny = neighbour[:y]
 
-    next if _nx < 0 || _nx >= width || _ny < 0 || _ny >= height
+    next if nx < 0 || nx >= width || ny < 0 || ny >= height
 
-    case _direction
+    case direction
     when :left
-      next if !field[_y][_x][:left] || !field[_ny][_nx][:right]
+      next if !field[y][x][:left] || !field[ny][nx][:right]
     when :right
-      next if !field[_y][_x][:right] || !field[_ny][_nx][:left]
+      next if !field[y][x][:right] || !field[ny][nx][:left]
     when :up
-      next if !field[_y][_x][:up] || !field[_ny][_nx][:down]
+      next if !field[y][x][:up] || !field[ny][nx][:down]
     when :down
-      next if !field[_y][_x][:down] || !field[_ny][_nx][:up]
+      next if !field[y][x][:down] || !field[ny][nx][:up]
     end
 
-    neighbours << _neighbour
+    neighbours << neighbour
   end
   neighbours
 end
 
-def rotate_field(field, distance, _width, _height)
+def rotate_field(field, distance, width)
   return field if distance == 0
 
-  index = (distance - 1) % _width
+  index = (distance - 1) % width
 
   if index.even?
     field[index] = field[index].rotate(-1)
@@ -82,16 +82,16 @@ def rotate_field(field, distance, _width, _height)
   field
 end
 
-def rotate_nodes(nodes, distance, _width, _height)
+def rotate_nodes(nodes, distance, width, height)
   return nodes if distance == 0
 
-  index = (distance - 1) % _width
+  index = (distance - 1) % width
 
-  nodes.each do |_node|
+  nodes.each do |node|
     if index.even?
-      _node[:x] = (_node[:x] + 1) % _width if _node[:y] == index
+      node[:x] = (node[:x] + 1) % width if node[:y] == index
     else
-      _node[:y] = (_node[:y] + 1) % _height if _node[:x] == index
+      node[:y] = (node[:y] + 1) % height if node[:x] == index
     end
   end
 
@@ -100,18 +100,18 @@ end
 
 # flood search
 distance = 0
-_nodes = [{ x: 0, y: 0 }]
-_target = { x: width - 1, y: height - 1 }
-until _nodes.include?(_target)
-  field = rotate_field(field, distance, width, height)
-  _nodes = rotate_nodes(_nodes, distance, width, height)
-  _next = []
-  _nodes.each do |_node|
-    neighbours(field, _node, width, height).each do |_neighbour|
-      _next << _neighbour unless _next.include?(_neighbour)
+nodes = [{ x: 0, y: 0 }]
+target = { x: width - 1, y: height - 1 }
+until nodes.include?(target)
+  field = rotate_field(field, distance, width)
+  nodes = rotate_nodes(nodes, distance, width, height)
+  results = []
+  nodes.each do |node|
+    neighbours(field, node, width, height).each do |neighbour|
+      results << neighbour unless results.include?(neighbour)
     end
   end
-  _nodes = _next
+  nodes = results
   distance += 1
 end
 puts distance
