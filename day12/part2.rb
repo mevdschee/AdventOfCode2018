@@ -17,14 +17,14 @@ end
 
 line = initial
 diff = 0
-(0...1000).each do |_i|
+1000.times do
   min = plants.keys.min - 3
   max = plants.keys.max + 3
   new_plants = Hash.new('.')
-  (min..max).each do |_p|
-    # print plants[_p]
-    pattern = plants[_p - 2] + plants[_p - 1] + plants[_p] + plants[_p + 1] + plants[_p + 2]
-    new_plants[_p] = '#' if patterns[pattern]
+  (min..max).each do |p|
+    # print plants[p]
+    pattern = plants[p - 2] + plants[p - 1] + plants[p] + plants[p + 1] + plants[p + 2]
+    new_plants[p] = '#' if patterns[pattern]
   end
   # puts
   diff = new_plants.keys.sum - plants.keys.sum

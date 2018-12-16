@@ -16,14 +16,14 @@ lines.each do |line|
 end
 
 line = initial
-(0...20).each do |_i|
+20.times do
   min = plants.keys.min - 2
   max = plants.keys.max + 2
   new_plants = Hash.new('.')
-  (min..max).each do |_p|
-    # print plants[_p]
-    pattern = plants[_p - 2] + plants[_p - 1] + plants[_p] + plants[_p + 1] + plants[_p + 2]
-    new_plants[_p] = '#' if patterns[pattern]
+  (min..max).each do |p|
+    # print plants[p]
+    pattern = plants[p - 2] + plants[p - 1] + plants[p] + plants[p + 1] + plants[p + 2]
+    new_plants[p] = '#' if patterns[pattern]
   end
   # puts
   plants = new_plants
