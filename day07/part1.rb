@@ -1,25 +1,25 @@
 lines = File.readlines('input')
 forward = Hash.new { |h, k| h[k] = [] }
 reverse = Hash.new { |h, k| h[k] = [] }
-lines.each do |_line|
-  _words = _line.split(' ')
-  forward[_words[1]] << _words[7]
-  reverse[_words[7]] << _words[1]
+lines.each do |line|
+  words = line.split(' ')
+  forward[words[1]] << words[7]
+  reverse[words[7]] << words[1]
 end
 
-_next = []
-forward.keys.each do |_root|
-  _root = reverse[_root].first while reverse[_root].count > 0
-  _next << _root unless _next.include?(_root)
+results = []
+forward.keys.each do |root|
+  root = reverse[root].first while reverse[root].count > 0
+  results << root unless results.include?(root)
 end
 
-_order = []
-while _next.count>0
-  _ready = _next.select { |_root| (reverse[_root] - _order).count==0 }
-  _expand = _ready.sort.first
-  _order << _expand
-  _next.delete(_expand)
-  _next += forward[_expand]
+ordered = []
+while results.count > 0
+  ready = results.select { |root| (reverse[root] - ordered).count == 0 }
+  expand = ready.min
+  ordered << expand
+  results.delete(expand)
+  results += forward[expand]
 end
 
-puts _order.join('')
+puts ordered.join('')

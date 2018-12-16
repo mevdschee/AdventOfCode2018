@@ -1,43 +1,43 @@
 lines = File.readlines('input')
 forward = Hash.new { |h, k| h[k] = [] }
 reverse = Hash.new { |h, k| h[k] = [] }
-lines.each do |_line|
-  _words = _line.split(' ')
-  forward[_words[1]] << _words[7]
-  reverse[_words[7]] << _words[1]
+lines.each do |line|
+  words = line.split(' ')
+  forward[words[1]] << words[7]
+  reverse[words[7]] << words[1]
 end
 
-_next = []
-forward.keys.each do |_root|
-  _root = reverse[_root].first while reverse[_root].count > 0
-  _next << _root unless _next.include?(_root)
+results = []
+forward.keys.each do |root|
+  root = reverse[root].first while reverse[root].count > 0
+  results << root unless results.include?(root)
 end
 
-_order = []
-_workers = {}
-_worker_count = 5
-_seconds_added = 61
-_time=0
-while _next.count>0 || _workers.keys.count>0
-  _worker_count.times do
-    if _workers.keys.count < _worker_count
-      _ready = (_next - _workers.keys).select { |_root| (reverse[_root] - _order).count==0 }
-      if _ready.count>0
-        _expand = _ready.sort.first
-        _workers[_expand] = _seconds_added+(_expand.ord-'A'.ord)
-      end
+order = []
+workers = {}
+worker_count = 5
+seconds_added = 61
+time = 0
+while results.count > 0 || workers.keys.count > 0
+  worker_count.times do
+    next unless workers.keys.count < worker_count
+
+    ready = (results - workers.keys).select { |root| (reverse[root] - order).count == 0 }
+    if ready.count > 0
+      expand = ready.min
+      workers[expand] = seconds_added + (expand.ord - 'A'.ord)
     end
   end
-  _workers.keys.each { |_i| _workers[_i]-=1 }
-  _ready = _workers.select { |_k,_v| _v==0 }.keys
-  _ready.each do |_expand|
-    _order << _expand
-    _next += forward[_expand]
-    _next.delete(_expand)
-    _workers.delete(_expand)  
-    _next.uniq!
+  workers.keys.each { |i| workers[i] -= 1 }
+  ready = workers.select { |_k, v| v == 0 }.keys
+  ready.each do |expand|
+    order << expand
+    results += forward[expand]
+    results.delete(expand)
+    workers.delete(expand)
+    results.uniq!
   end
-  _time+=1
+  time += 1
 end
 
-puts _time
+puts time
