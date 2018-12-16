@@ -4,13 +4,15 @@ recipes = '37'
 p1 = 0
 p2 = 1
 
+seq_length = 10
+
 done = false
 until done
   n1 = recipes[p1].to_i
   n2 = recipes[p2].to_i
   (n1 + n2).to_s.each_char do |n|
     recipes.concat(n)
-    if recipes.length == input + 10
+    if recipes.length == input + seq_length
       done = true
       break
     end
@@ -29,4 +31,4 @@ until done
   # puts
 end
 
-puts recipes[-10..-1]
+puts recipes[-seq_length, seq_length]
