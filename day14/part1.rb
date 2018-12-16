@@ -8,8 +8,8 @@ done = false
 until done
   n1 = recipes[p1].to_i
   n2 = recipes[p2].to_i
-  (n1 + n2).to_s.each_char do |_n|
-    recipes.concat(_n)
+  (n1 + n2).to_s.each_char do |n|
+    recipes.concat(n)
     if recipes.length == input + 10
       done = true
       break
