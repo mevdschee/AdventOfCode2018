@@ -17,13 +17,13 @@ until done
   end
   p1 = (p1 + 1 + n1) % recipes.length
   p2 = (p2 + 1 + n2) % recipes.length
-  # recipes.split('').each_index do |_p|
-  #  if p1 == _p
-  #    print '(' + recipes[_p] + ')'
-  #  elsif p2 == _p
-  #    print '[' + recipes[_p] + ']'
+  # recipes.split('').each_index do |p|
+  #  if p1 == p
+  #    print '(' + recipes[p] + ')'
+  #  elsif p2 == p
+  #    print '[' + recipes[p] + ']'
   #  else
-  #    print ' ' + recipes[_p] + ' '
+  #    print ' ' + recipes[p] + ' '
   #  end
   # end
   # puts
