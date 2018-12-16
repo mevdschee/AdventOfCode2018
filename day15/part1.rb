@@ -171,7 +171,7 @@ end
 
 def game
   i = 0
-  loop do |_i|
+  loop do
     break unless do_turn
 
     i += 1
