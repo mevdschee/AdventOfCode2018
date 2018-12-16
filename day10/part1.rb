@@ -1,5 +1,5 @@
 lines = File.readlines('input')
-points = lines.map { |_line| _line.scan(/(-?[0-9]+)/).to_a.flatten.map(&:to_i) }
+points = lines.map { |line| line.scan(/(-?[0-9]+)/).to_a.flatten.map(&:to_i) }
 
 # loop while bbox shrinks
 min = (points.max_by { |c| c.map(&:abs).max }.max * 2)**2
