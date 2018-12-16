@@ -84,12 +84,6 @@ def eqrr(registers, instruction)
   registers[c] = registers[a] == registers[b] ? 1 : 0
 end
 
-def match(method, registers, instruction, expected)
-  registers = registers.dup
-  Object.send(method, registers, instruction)
-  registers == expected
-end
-
 results = {}
 tests.each do |lines|
   registers_regex = /\[(\d+), (\d+), (\d+), (\d+)\]/
@@ -98,7 +92,11 @@ tests.each do |lines|
   instruction = lines[1].scan(instruction_regex).to_a[0].map(&:to_i)
   expected = lines[2].scan(registers_regex).to_a[0].map(&:to_i)
   operations = %i[addr addi mulr muli banr bani borr bori setr seti gtir gtri gtrr eqir eqri eqrr]
-  matches = operations.select { |method| match(method, registers, instruction, expected) }
+  matches = operations.select do |method|
+    output = registers.dup
+    Object.send(method, output, instruction)
+    output == expected
+  end
   if results[instruction[0]].nil?
     results[instruction[0]] = matches
   else
