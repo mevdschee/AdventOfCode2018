@@ -6,10 +6,10 @@ class DoublyLinkedCircularList
     attr_accessor :next
     attr_reader   :value
 
-    def initialize(_value)
+    def initialize(value)
       @previous = nil
       @next = nil
-      @value = _value
+      @value = value
     end
 
     def to_s
@@ -92,30 +92,30 @@ class DoublyLinkedCircularList
 end
 
 lines = File.readlines('input')
-lines.each do |_line|
-  player_count = _line.match(/(\d+) players/).to_a[1].to_i
-  last_marble = _line.match(/(\d+) points/).to_a[1].to_i
+lines.each do |line|
+  player_count = line.match(/(\d+) players/).to_a[1].to_i
+  last_marble = line.match(/(\d+) points/).to_a[1].to_i
 
   marbles = DoublyLinkedCircularList.new
   marbles.append(0)
   scores = Hash.new(0)
-  (1..last_marble * 100).each do |_marble|
-    player = (_marble - 1) % player_count
-    if _marble % 23 == 0
+  (1..last_marble * 100).each do |marble|
+    player = (marble - 1) % player_count
+    if marble % 23 == 0
       marbles.rotate(-7)
-      scores[player] += _marble + marbles.read
+      scores[player] += marble + marbles.read
       marbles.remove
       marbles.rotate(1)
     else
       marbles.rotate(1)
-      marbles.append(_marble)
+      marbles.append(marble)
     end
     # puts "#{player + 1} #{marbles}"
   end
 
   score = scores.values.max
 
-  expected = _line.match(/high score is (\d+)/).to_a[1].to_i if _line.include? 'high score is'
+  expected = line.match(/high score is (\d+)/).to_a[1].to_i if line.include? 'high score is'
   if expected
     puts "score: #{score}, expected: #{expected}"
     # exit
