@@ -24,7 +24,7 @@ func main() {
 		if sum < 10 {
 			num = []byte{sum}
 		} else {
-			num = []byte{sum / 10, sum % 10}
+			num = []byte{1, sum - 10}
 		}
 		for _, n := range num {
 			recipes = append(recipes, n + '0')
