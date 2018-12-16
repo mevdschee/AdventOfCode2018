@@ -1,10 +1,10 @@
 lines = File.readlines('input')
 counts = { 2 => 0, 3 => 0 }
-lines.each do |_line|
-  counts.each do |_count, _|
-    _line.split('').sort.uniq.each do |_char|
-      if _line.count(_char) == _count
-        counts[_count] += 1
+lines.each do |line|
+  counts.each do |count, _|
+    line.split('').sort.uniq.each do |char|
+      if line.count(char) == count
+        counts[count] += 1
         break
       end
     end
