@@ -1,19 +1,19 @@
 input = IO.read('input').chomp
 numbers = input.split(' ').map(&:to_i)
 
-def parse(_numbers)
+def parse(numbers)
   node = { meta: [], children: [] }
-  child_count = _numbers.shift
-  meta_length = _numbers.shift
+  child_count = numbers.shift
+  meta_length = numbers.shift
   child_count.times do
-    node[:children] << parse(_numbers)
+    node[:children] << parse(numbers)
   end
-  node[:meta] = _numbers.shift(meta_length)
+  node[:meta] = numbers.shift(meta_length)
   node
 end
 
-def collect_meta(_node)
-  _node[:meta] + _node[:children].map { |_child| collect_meta(_child) }.flatten
+def collect_meta(node)
+  node[:meta] + node[:children].map { |child| collect_meta(child) }.flatten
 end
 
 root = parse(numbers)
