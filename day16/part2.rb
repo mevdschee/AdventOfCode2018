@@ -92,9 +92,9 @@ tests.each do |lines|
   instruction = lines[1].scan(instruction_regex).to_a[0].map(&:to_i)
   expected = lines[2].scan(registers_regex).to_a[0].map(&:to_i)
   operations = %i[addr addi mulr muli banr bani borr bori setr seti gtir gtri gtrr eqir eqri eqrr]
-  matches = operations.select do |method|
+  matches = operations.select do |operation|
     output = registers.dup
-    Object.send(method, output, instruction)
+    Object.send(operation, output, instruction)
     output == expected
   end
   if results[instruction[0]].nil?
