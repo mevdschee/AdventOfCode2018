@@ -1,12 +1,9 @@
-@field = {}
+@field = Hash.new('.')
 @min_y = 0
 @max_y = 0
 
 def init(filename)
-  lines = File.readlines(filename)
-  @field = Hash.new('.')
-  lines.each do |line|
-    line.chomp!
+  File.readlines(filename).each do |line|
     regex = /[xy]=(\d+), [xy]=(\d+)..(\d+)/
     f, s, e = line.scan(regex).to_a[0].map(&:to_i)
     (s..e).each do |l|
