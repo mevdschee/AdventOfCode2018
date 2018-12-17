@@ -95,4 +95,4 @@ until fronteers.count == 0
   fronteers = spread(fronteers)
 end
 # print_field
-puts count_characters('~|')
+puts count_characters('~')
