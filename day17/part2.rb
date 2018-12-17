@@ -14,8 +14,8 @@ def init(filename)
       @field[[x, y]] = '#'
     end
   end
-  @min_y = @field.min_by { |k, _| k[1] }[0][1]
-  @max_y = @field.max_by { |k, _| k[1] }[0][1]
+  @min_y = @field.keys.map(&:last).min
+  @max_y = @field.keys.map(&:last).max
 end
 
 def fall(fronteers)

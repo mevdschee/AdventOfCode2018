@@ -14,15 +14,15 @@ def init(filename)
       @field[[x, y]] = '#'
     end
   end
-  @min_y = @field.min_by { |k, _| k[1] }[0][1]
-  @max_y = @field.max_by { |k, _| k[1] }[0][1]
+  @min_y = @field.keys.map(&:last).min
+  @max_y = @field.keys.map(&:last).max
 end
 
 # def print_field
-#   min_x = @field.min_by { |k, _| k[0] }[0][0]
-#   min_y = @field.min_by { |k, _| k[1] }[0][1]
-#   max_x = @field.max_by { |k, _| k[0] }[0][0]
-#   max_y = @field.max_by { |k, _| k[1] }[0][1]
+#   min_x = @field.keys.map(&:first).min
+#   min_y = @field.keys.map(&:last).min
+#   max_x = @field.keys.map(&:first).max
+#   max_y = @field.keys.map(&:last).max
 #   (min_y..max_y).each do |y|
 #     (min_x..max_x).each do |x|
 #       print @field[[x, y]]
