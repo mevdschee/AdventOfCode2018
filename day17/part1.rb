@@ -41,7 +41,6 @@ end
 def fall(fronteers)
   new_fronteers = []
   fronteers.each do |x, y|
-    @field[[x, y]] = '|'
     while @field[[x, y + 1]] == '.'
       y += 1
       break if y > @max_y
@@ -75,6 +74,7 @@ def spread(fronteers)
     (walls[0][0]..walls[1][0]).each do |x|
       @field[[x, y]] = '~'
     end
+    @field[[ox, y - 1]] = '|'
     new_fronteers << [ox, y - 1]
   end
   new_fronteers.uniq
