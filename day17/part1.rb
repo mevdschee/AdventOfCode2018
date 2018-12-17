@@ -1,13 +1,11 @@
 @lines = []
 @field = {}
-@spring = [0, 0]
 @min_y = 0
 @max_y = 0
 
 def init(filename)
   @lines = File.readlines(filename)
   @field = Hash.new('.')
-  @spring = [500, 0]
   @lines.each do |line|
     line.chomp!
     regex = /[xy]=(\d+), [xy]=(\d+)..(\d+)/
@@ -28,11 +26,7 @@ end
 #   max_y = @field.max_by { |k, _| k[1] }[0][1]
 #   (min_y..max_y).each do |y|
 #     (min_x..max_x).each do |x|
-#       if @spring == [x, y]
-#         print '+'
-#       else
-#         print @field[[x, y]]
-#       end
+#       print @field[[x, y]]
 #     end
 #     puts
 #   end
@@ -89,7 +83,7 @@ def count_characters(characters)
 end
 
 init('input')
-fronteers = [@spring]
+fronteers = [[500, 0]]
 until fronteers.count == 0
   fronteers = fall(fronteers)
   fronteers = spread(fronteers)

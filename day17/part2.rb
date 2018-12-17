@@ -1,13 +1,11 @@
 @lines = []
 @field = {}
-@spring = [0, 0]
 @min_y = 0
 @max_y = 0
 
 def init(filename)
   @lines = File.readlines(filename)
   @field = Hash.new('.')
-  @spring = [500, 0]
   @lines.each do |line|
     line.chomp!
     regex = /[xy]=(\d+), [xy]=(\d+)..(\d+)/
@@ -72,7 +70,7 @@ def count_characters(characters)
 end
 
 init('input')
-fronteers = [@spring]
+fronteers = [[500, 0]]
 until fronteers.count == 0
   fronteers = fall(fronteers)
   fronteers = spread(fronteers)
