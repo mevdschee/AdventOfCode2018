@@ -85,7 +85,7 @@ def player_attack(x, y)
   player = @players[[x, y]]
   victim = @players[key]
   victim[:health] -= player[:attack]
-  @players.delete(key) if victim[:health] < 0
+  @players.delete(key) if victim[:health] <= 0
 end
 
 def victims_left(type)
@@ -96,8 +96,10 @@ def victims_left(type)
 end
 
 def do_turn
-  @players.keys.each do |x, y|
-    next if @players[[x, y]].nil?
+  @players.dup.each do |coords, player|
+    next if @players[coords] != player
+
+    x, y = coords
     return false if victims_left(@players[[x, y]][:type]) == 0
 
     x, y = player_move(x, y)
