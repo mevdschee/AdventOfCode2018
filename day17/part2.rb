@@ -61,10 +61,8 @@ def spread(fronteers)
 end
 
 def count_characters(characters)
-  @field.select do |coordinates, character|
-    x, y = coordinates
-    matches = characters.include?(character)
-    y >= @min_y && y <= @max_y && matches
+  @field.keys.select do |x, y|
+    characters.include?(@field[[x, y]]) && @min_y <= y && y <= @max_y
   end.count
 end
 
