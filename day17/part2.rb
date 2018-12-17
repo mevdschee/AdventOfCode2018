@@ -21,23 +21,6 @@ def init(filename)
   @max_y = @field.max_by { |k, _| k[1] }[0][1]
 end
 
-def print_field
-  min_x = @field.min_by { |k, _| k[0] }[0][0]
-  min_y = @field.min_by { |k, _| k[1] }[0][1]
-  max_x = @field.max_by { |k, _| k[0] }[0][0]
-  max_y = @field.max_by { |k, _| k[1] }[0][1]
-  (min_y..max_y).each do |y|
-    (min_x..max_x).each do |x|
-      if @spring == [x, y]
-        print '+'
-      else
-        print @field[[x, y]]
-      end
-    end
-    puts
-  end
-end
-
 def fall(fronteers)
   new_fronteers = []
   fronteers.each do |x, y|
@@ -94,5 +77,4 @@ until fronteers.count == 0
   fronteers = fall(fronteers)
   fronteers = spread(fronteers)
 end
-# print_field
 puts count_characters('~')
