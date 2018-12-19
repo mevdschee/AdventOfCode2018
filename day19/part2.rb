@@ -96,7 +96,7 @@ while line = lines[ip]
   registers[ip_register] = ip
   # print "ip=#{ip} #{registers} #{line.join(' ')} "
   if ip == 1
-    registers[0] = sum_of_divisors(registers[5])
+    registers[0] = sum_of_divisors(registers.max)
     registers[ip_register] += 14
   else
     Object.send(operation, registers, instruction)
