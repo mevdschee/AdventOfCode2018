@@ -87,7 +87,7 @@ ip_register = lines.shift.last.to_i
 ip = 0
 
 def sum_of_divisors(n)
-  (1..n).to_a.select { |i| n % i == 0 }.sum
+  (1..n).select { |i| n % i == 0 }.sum
 end
 
 while line = lines[ip]
@@ -105,7 +105,5 @@ while line = lines[ip]
   ip += 1
   # puts registers.to_s
 end
-
-puts registers.to_s
 
 puts registers[0]
