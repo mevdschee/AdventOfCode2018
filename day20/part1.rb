@@ -41,33 +41,33 @@ def register_node_connections(nodes, fronteers, connections)
   new_fronteers.uniq
 end
 
-def connections_to_s(connections)
-  min_x = connections.keys.map { |v| [v[0], v[2]].min }.min
-  min_y = connections.keys.map { |v| [v[1], v[3]].min }.min
-  max_x = connections.keys.map { |v| [v[0], v[2]].max }.max
-  max_y = connections.keys.map { |v| [v[1], v[3]].max }.max
-  s = ''
-  (min_y..max_y).each do |y|
-    (min_x..max_x).each do |x|
-      key1 = [x, y]
-      key2 = [x, y - 1]
-      s += (connections[key1 + key2] ? '#-' : '##')
-    end
-    s += "#\n"
-    (min_x..max_x).each do |x|
-      key1 = [x, y]
-      key2 = [x - 1, y]
-      s += (connections[key1 + key2] ? '|' : '#')
-      s += (key1 == [0, 0] ? 'X' : '.')
-    end
-    s += "#\n"
-  end
-  (min_x..max_x).each do |_x|
-    s += '##'
-  end
-  s += "#\n"
-  s
-end
+# def connections_to_s(connections)
+#   min_x = connections.keys.map { |v| [v[0], v[2]].min }.min
+#   min_y = connections.keys.map { |v| [v[1], v[3]].min }.min
+#   max_x = connections.keys.map { |v| [v[0], v[2]].max }.max
+#   max_y = connections.keys.map { |v| [v[1], v[3]].max }.max
+#   s = ''
+#   (min_y..max_y).each do |y|
+#     (min_x..max_x).each do |x|
+#       key1 = [x, y]
+#       key2 = [x, y - 1]
+#       s += (connections[key1 + key2] ? '#-' : '##')
+#     end
+#     s += "#\n"
+#     (min_x..max_x).each do |x|
+#       key1 = [x, y]
+#       key2 = [x - 1, y]
+#       s += (connections[key1 + key2] ? '|' : '#')
+#       s += (key1 == [0, 0] ? 'X' : '.')
+#     end
+#     s += "#\n"
+#   end
+#   (min_x..max_x).each do |_x|
+#     s += '##'
+#   end
+#   s += "#\n"
+#   s
+# end
 
 def calculate_distances(connections)
   fronteers = [[0, 0]]
