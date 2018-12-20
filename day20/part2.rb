@@ -92,7 +92,7 @@ def calculate_distances(connections)
 end
 
 input = IO.read('input').chomp[1...-1]
-# ^ENWWW(NEEE|SSE(EE|N))$ => [['ENWWW', [['NEEE'], ['SSE', [['EE'], ['N']], '']], '']]
+# convert from "^ENWWW(NEEE|SSE(EE|N))$" to: "[['ENWWW',[['NEEE'],['SSE',[['EE'],['N']],'']],'']]"
 nodes = eval('[[\'' + input.gsub('(', '\',[[\'').gsub(')', '\']],\'').gsub('|', '\'],[\'') + '\']]')
 connections = Hash.new(false)
 register_node_connections(nodes, [[0, 0]], connections)
