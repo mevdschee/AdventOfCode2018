@@ -1,7 +1,7 @@
 def addr(registers, instruction)
   _, a, b, c = instruction
   registers[c] = registers[a] + registers[b]
-  end
+end
 
 def addi(registers, instruction)
   _, a, b, c = instruction
