@@ -81,7 +81,6 @@ end
 lines = File.readlines('input')
 lines.map!(&:split)
 operations = %w[bani banr muli setr bori eqrr gtir mulr gtrr seti gtri eqri addi borr eqir addr]
-opcodes = operations.map.with_index(1).to_h
 registers = [0, 0, 0, 0, 0, 0]
 ip_register = lines.shift.last.to_i
 ip = 0
