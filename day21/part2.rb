@@ -95,12 +95,10 @@ while line = lines[ip]
   # print "ip=#{ip} #{registers} #{line.join(' ')} "
   if ip == 28
     target = registers[instruction[1]]
-    if seen[target]
-      break
-    else
-      seen[target] = true
-      last = target
-    end
+    break if seen[target]
+
+    seen[target] = true
+    last = target
   end
   Object.send(operation, registers, instruction)
   ip = registers[ip_register]
