@@ -213,16 +213,6 @@ func addIfBlocks(lines []string) []string {
 	return lines
 }
 
-func gofmt(source string) {
-	subProcess := exec.Command("gofmt")
-	stdin, _ := subProcess.StdinPipe()
-    subProcess.Stdout = os.Stdout
-    subProcess.Stderr = os.Stderr
-    subProcess.Start()
-	io.WriteString(stdin, source+"\n")
-	stdin.Close()
-}
-
 func main() {
 	lines := readLines("input")
 	lines = replaceRegisters(lines)
@@ -238,5 +228,4 @@ func main() {
 	source+= "a,b,c,d,e,f = a,b,c,d,e,f\n"
 	source+= strings.Join(lines,"\n")
 	source+= "}\n"
-	gofmt(source)
 }	
