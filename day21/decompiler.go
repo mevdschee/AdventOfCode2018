@@ -6,9 +6,6 @@ import (
 	"regexp"
 	"strings"
 	"io/ioutil"
-	"os/exec"
-	"os"
-	"io"
 )
 
 func readLines(filename string) []string {
@@ -228,4 +225,5 @@ func main() {
 	source+= "a,b,c,d,e,f = a,b,c,d,e,f\n"
 	source+= strings.Join(lines,"\n")
 	source+= "}\n"
+	fmt.Println(source)
 }	
