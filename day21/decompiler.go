@@ -224,6 +224,6 @@ func main() {
 	source+= "var a int;var b int;var c int;var d int;var e int;var f int\n"
 	source+= "a,b,c,d,e,f = a,b,c,d,e,f\n"
 	source+= strings.Join(lines,"\n")
-	source+= "}\n"
+	source+= "\n}\n"
 	fmt.Println(source)
 }	
