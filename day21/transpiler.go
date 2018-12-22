@@ -177,7 +177,7 @@ func AddForLoops(lines []string) []string {
 }
 
 
-func addIfBreaks(lines []string) []string {
+func addIfBlocks(lines []string) []string {
 	re := regexp.MustCompile("if ([^{]+) { ([a-z]) = 1 } else { ([a-z]) = 0 }")
 	for i := range lines {
 		matches := re.FindStringSubmatch(lines[i])
@@ -231,7 +231,7 @@ func main() {
 	lines = addGotos(lines)
 	lines = addRelativeGotos(lines)
 	lines = AddForLoops(lines)
-	lines = addIfBreaks(lines)
+	lines = addIfBlocks(lines)
 	lines = addGotoLabels(lines)
 	source:= "package main\nfunc main() {\n"
 	source+= "var a int;var b int;var c int;var d int;var e int;var f int\n"
