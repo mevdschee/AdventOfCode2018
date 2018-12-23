@@ -46,7 +46,7 @@ end
 
 def find_largest_collision(collides, indices)
   indices.reverse_each do |size|
-    optimized_combinations(collides, indices, size) do |collision|
+    optimized_combinations(collides, indices, size + 1) do |collision|
       return collision unless collision.nil?
 
       break
