@@ -154,7 +154,7 @@ func addGotoLabels(lines []string) []string {
 	return lines
 }
 
-func AddForLoops(lines []string) []string {
+func addForLoops(lines []string) []string {
 	// pass 5
 	re := regexp.MustCompile("goto ([0-9]+)")
 	for i := range lines {
@@ -217,7 +217,7 @@ func main() {
 	lines = replaceAddresses(lines)
 	lines = addGotos(lines)
 	lines = addRelativeGotos(lines)
-	lines = AddForLoops(lines)
+	lines = addForLoops(lines)
 	lines = addIfBlocks(lines)
 	lines = addGotoLabels(lines)
 	source:= "package main\nfunc main() {\n"
