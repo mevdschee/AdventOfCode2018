@@ -46,14 +46,14 @@ func main() {
 			}
 			c = f
 		}
+		// if b == a {
+		//	break
+		// }
 		if seen[b] {
 			break
 		}
 		seen[b]=true
 		last = b
-		//if b == a {
-		//	break
-		//}
 	}
 	fmt.Println(last)
 }
