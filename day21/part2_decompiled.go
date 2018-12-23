@@ -51,6 +51,9 @@ func main() {
 		}
 		seen[b]=true
 		last = b
+		//if b == a {
+		//	break
+		//}
 	}
 	fmt.Println(last)
 }
