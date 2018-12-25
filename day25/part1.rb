@@ -28,9 +28,10 @@ def find_constellations(collisions)
     collisions.each do |_, points1|
       points1.to_a.each do |point2|
         points2 = collisions[point2]
-        points1_length = points1.length
+        next unless points1 != points2
+
         points1.merge(points2)
-        unchanged = false if points1_length != points1.length
+        unchanged = false
       end
     end
     break if unchanged
