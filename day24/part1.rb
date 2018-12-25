@@ -41,7 +41,7 @@ end
 def effective_power(units, army, group)
   unit_count = units[army][group][:unit_count]
   attack_damage = units[army][group][:attack_damage]
-  units[army][group][:effective_power] = unit_count * attack_damage
+  unit_count * attack_damage
 end
 
 def remove_empty_groups(units)
@@ -79,14 +79,17 @@ def target_selection(units)
       [-e, -i]
     end
     attackers.each do |group1|
-      group2 = defenders.max_by do |group2|
-        d = damage(units, army1, group1, army2, group2)
+      damages = defenders.map do |group2|
+        [group2, damage(units, army1, group1, army2, group2)]
+      end.to_h
+      group2 = defenders.min_by do |group2|
+        d = damages[group2]
         e = effective_power(units, army2, group2)
         i = units[army2][group2][:initiative]
         puts "#{army1.capitalize} group #{group1} would deal defending group #{group2} #{d} damage"
-        [d, e, i]
+        [-d, -e, -i]
       end
-      next if group2.nil?
+      next if damages[group2] == 0 || group2.nil?
 
       defenders.delete(group2)
 
@@ -106,7 +109,7 @@ def attacking(units, fights)
 
     damage = damage(units, army1, group1, army2, group2)
     kills = damage / defender[:hit_points]
-    kills = [kills, defender[:unit_count]].min
+    kills = defender[:unit_count] if kills > defender[:unit_count]
 
     puts "#{army1} group #{group1} attacks defending group #{group2}, killing #{kills} units"
     defender[:unit_count] -= kills
@@ -134,6 +137,7 @@ until units.values.map(&:count).min == 0
   remove_empty_groups(units)
   puts '---'
 end
+print_units(units)
 
 puts units.values.flatten.map(&:values).flatten.reduce(0) { |sum, v| sum += v[:unit_count] }
 
