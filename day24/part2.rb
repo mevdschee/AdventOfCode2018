@@ -121,10 +121,9 @@ boost = 0
 loop do
   units = read_units('input')
   units[:immune_system].each { |_, v| v[:attack_damage] += boost }
-  until units.values.map(&:count).min == 0
+  loop do
     fights = target_selection(units)
-    kills = attacking(units, fights)
-    break if kills == 0
+    break if attacking(units, fights) == 0
 
     remove_empty_groups(units)
   end

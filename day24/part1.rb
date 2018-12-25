@@ -99,6 +99,7 @@ def target_selection(units)
 end
 
 def attacking(units, fights)
+  total_kills = 0
   fights.sort_by! { |army1, group1, _, _, _| -units[army1][group1][:initiative] }
   fights.each do |army1, group1, army2, group2|
     attacker = units[army1][group1]
@@ -108,15 +109,18 @@ def attacking(units, fights)
     damage = damage(units, army1, group1, army2, group2)
     kills = damage / defender[:hit_points]
     kills = defender[:unit_count] if kills > defender[:unit_count]
+    total_kills += kills
 
     defender[:unit_count] -= kills
   end
+  total_kills
 end
 
 units = read_units('input')
-until units.values.map(&:count).min == 0
+loop do
   fights = target_selection(units)
-  attacking(units, fights)
+  break if attacking(units, fights) == 0
+
   remove_empty_groups(units)
 end
 
