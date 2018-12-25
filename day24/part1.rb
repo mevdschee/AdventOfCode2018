@@ -98,6 +98,14 @@ def target_selection(units)
   fights
 end
 
+def count_units(units)
+  units.map do |_, groups|
+    groups.values.reduce(0) do |sum, group|
+      sum + group[:unit_count]
+    end
+  end.sum
+end
+
 def attacking(units, fights)
   total_kills = 0
   fights.sort_by! { |army1, group1, _, _, _| -units[army1][group1][:initiative] }
@@ -124,4 +132,4 @@ loop do
   remove_empty_groups(units)
 end
 
-puts units.values.flatten.map(&:values).flatten.reduce(0) { |sum, v| sum += v[:unit_count] }
+puts count_units(units)

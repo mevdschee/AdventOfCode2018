@@ -116,6 +116,14 @@ def attacking(units, fights)
   total_kills
 end
 
+def count_units(units)
+  units.map do |_, groups|
+    groups.values.reduce(0) do |sum, group|
+      sum + group[:unit_count]
+    end
+  end.sum
+end
+
 units = {}
 boost = 0
 loop do
@@ -132,4 +140,4 @@ loop do
   boost += 1
 end
 
-puts units.values.flatten.map(&:values).flatten.reduce(0) { |sum, v| sum += v[:unit_count] }
+puts count_units(units)
