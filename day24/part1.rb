@@ -82,12 +82,12 @@ def target_selection(units)
       damages = defenders.map do |group2|
         [group2, damage(units, army1, group1, army2, group2)]
       end.to_h
-      group2 = defenders.min_by do |group2|
+      group2 = defenders.max_by do |group2|
         d = damages[group2]
         e = effective_power(units, army2, group2)
         i = units[army2][group2][:initiative]
         puts "#{army1.capitalize} group #{group1} would deal defending group #{group2} #{d} damage"
-        [-d, -e, -i]
+        [d, e, i]
       end
       next if damages[group2] == 0 || group2.nil?
 
