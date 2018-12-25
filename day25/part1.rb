@@ -11,7 +11,7 @@ def read_points(filename)
   points
 end
 
-def find_collides(points, distance)
+def find_collisions(points, distance)
   indices = points.length.times.to_a
   collisions = Hash.new { |h, k| h[k] = Set.new }
   indices.product(indices) do |point1, point2|
@@ -34,6 +34,6 @@ def find_constellations(collisions)
 end
 
 points = read_points('input')
-collisions = find_collides(points, 3)
+collisions = find_collisions(points, 3)
 constellations = find_constellations(collisions)
 puts constellations.count
