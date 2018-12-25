@@ -23,17 +23,17 @@ def find_collisions(points, distance)
 end
 
 def find_constellations(collisions)
-  changed = true
-  while changed
-    changed = false
+  loop do
+    unchanged = true
     collisions.each do |_, points1|
       points1.to_a.each do |point2|
         points2 = collisions[point2]
         points1_length = points1.length
         points1.merge(points2)
-        changed = true if points1_length != points1.length
+        unchanged = false if points1_length != points1.length
       end
     end
+    break if unchanged
   end
   collisions.values.uniq
 end
