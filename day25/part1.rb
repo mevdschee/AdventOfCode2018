@@ -2,10 +2,9 @@ require 'set'
 
 def read_points(filename)
   lines = File.readlines(filename)
-  re = /(-?\d+),(-?\d+),(-?\d+),(-?\d+)/
   points = []
   lines.each do |line|
-    x, y, z, r = line.scan(re).to_a[0].map(&:to_i)
+    x, y, z, r = line.split(',').map(&:to_i)
     points << [x, y, z, r]
   end
   points
