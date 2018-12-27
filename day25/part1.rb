@@ -4,8 +4,7 @@ def read_points(filename)
   lines = File.readlines(filename)
   points = []
   lines.each do |line|
-    x, y, z, r = line.split(',', 4).map(&:to_i)
-    points << [x, y, z, r]
+    points << line.split(',').map(&:to_i)
   end
   points
 end
