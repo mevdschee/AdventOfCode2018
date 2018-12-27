@@ -20,7 +20,7 @@ def find_collisions(points, distance)
 end
 
 def find_constellations(collisions)
-  collisions.each do |_point1, points1|
+  collisions.values.each do |points1|
     points1.to_a.each do |point2|
       points2 = collisions[point2]
       next if points1 == points2
