@@ -2,11 +2,9 @@ require 'set'
 
 def read_points(filename)
   lines = File.readlines(filename)
-  points = []
-  lines.each do |line|
-    points << line.split(',').map(&:to_i)
+  lines.map do |line|
+    line.split(',').map(&:to_i)
   end
-  points
 end
 
 def find_collisions(points, distance)
