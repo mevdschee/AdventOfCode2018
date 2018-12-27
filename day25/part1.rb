@@ -10,12 +10,13 @@ def read_points(filename)
 end
 
 def find_collisions(points, distance)
-  indices = points.length.times.to_a
+  indices = points.each_with_index.to_a
   collisions = Hash.new { |h, k| h[k] = Set.new }
   indices.product(indices) do |point1, point2|
-    x1, y1, z1, r1 = points[point1]
-    x2, y2, z2, r2 = points[point2]
-    collisions[point1] << point2 if (x2 - x1).abs + (y2 - y1).abs + (z2 - z1).abs + (r2 - r1).abs <= distance
+    p1 = points[point1]
+    p2 = points[point2]
+    d = p1.zip(p2).map { |c1, c2| (c1 - c2).abs }.reduce(:+)
+    collisions[point1] << point2 if d <= distance
   end
   collisions
 end
