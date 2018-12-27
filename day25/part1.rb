@@ -10,7 +10,7 @@ def read_points(filename)
 end
 
 def find_collisions(points, distance)
-  indices = points.each_with_index.to_a
+  indices = points.each_index.to_a
   collisions = Hash.new { |h, k| h[k] = Set.new }
   indices.product(indices) do |point1, point2|
     p1 = points[point1]
