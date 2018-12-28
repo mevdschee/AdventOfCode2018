@@ -23,7 +23,8 @@ def find_constellations(collisions)
       points1.merge(points2)
       points2.merge(points1)
     end
-  end.uniq
+    collisions.uniq!
+  end
 end
 
 points = read_points('input')
