@@ -1,22 +1,20 @@
 require 'set'
 
 def read_points(filename)
-  lines = File.readlines(filename)
-  lines.map do |line|
+  File.readlines(filename).map do |line|
     line.split(',').map(&:to_i)
   end
 end
 
 def find_collisions(points, distance)
-  indices = points.each_index.to_a
-  collisions = Hash.new { |h, k| h[k] = Set.new }
-  indices.product(indices) do |point1, point2|
-    p1 = points[point1]
-    p2 = points[point2]
-    d = p1.zip(p2).map { |c1, c2| (c1 - c2).abs }.reduce(:+)
-    collisions[point1] << point2 if d <= distance
+  Hash.new { |h, k| h[k] = Set.new }.tap do |collisions|
+    points.each_with_index do |p1, i1|
+      points.each_with_index do |p2, i2|
+        d = p1.zip(p2).map { |c1, c2| (c1 - c2).abs }.reduce(:+)
+        collisions[i1] << i2 if d <= distance
+      end
+    end
   end
-  collisions
 end
 
 def find_constellations(collisions)
@@ -28,8 +26,7 @@ def find_constellations(collisions)
       points1.merge(points2)
       points2.merge(points1)
     end
-  end
-  collisions.values.uniq
+  end.uniq
 end
 
 points = read_points('input')
