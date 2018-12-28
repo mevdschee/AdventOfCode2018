@@ -8,10 +8,10 @@ end
 
 def find_collisions(points, distance)
   Hash.new { |h, k| h[k] = Set.new }.tap do |collisions|
-    points.each_with_index do |p1, i1|
-      points.each_with_index do |p2, i2|
+    points.each_with_index do |p1, n1|
+      points.each_with_index do |p2, n2|
         d = p1.zip(p2).map { |c1, c2| (c1 - c2).abs }.reduce(:+)
-        collisions[i1] << i2 if d <= distance
+        collisions[n1] << n2 if d <= distance
       end
     end
   end
