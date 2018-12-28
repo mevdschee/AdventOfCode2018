@@ -19,7 +19,7 @@ end
 
 def find_constellations(collisions)
   collisions.values.each do |points1|
-    points1.map { |p| collisions[p] }.each do |points2|
+    collisions.values_at(*points1).each do |points2|
       points1.merge(points2)
       points2.merge(points1)
     end
