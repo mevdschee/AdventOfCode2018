@@ -48,15 +48,15 @@ def compatible(x, y, gear)
 end
 
 make_map(100, 100)
-fronteers = [[0, 0, 'torch', 0, '']]
+frontiers = [[0, 0, 'torch', 0, '']]
 distance = 0
 @visited[[0, 0, 'torch']] = true
 done = false
 until @visited[[@tx, @ty, 'torch']]
-  new_fronteers = []
-  fronteers.each do |x, y, gear, wait|
+  new_frontiers = []
+  frontiers.each do |x, y, gear, wait|
     if wait > 0
-      new_fronteers << [x, y, gear, wait - 1]
+      new_frontiers << [x, y, gear, wait - 1]
       next
     end
 
@@ -66,20 +66,20 @@ until @visited[[@tx, @ty, 'torch']]
       next if @map[[nx, ny]].nil?
 
       if compatible(nx, ny, gear) && !@visited[[nx, ny, gear]]
-        new_fronteers << [nx, ny, gear, 0]
+        new_frontiers << [nx, ny, gear, 0]
       end
     end
 
     %w[torch climbing neither].each do |new_gear|
       if gear != new_gear && compatible(x, y, new_gear) && !@visited[[x, y, new_gear]]
-        new_fronteers << [x, y, new_gear, 6]
+        new_frontiers << [x, y, new_gear, 6]
       end
     end
   end
 
-  fronteers = new_fronteers.uniq
+  frontiers = new_frontiers.uniq
 
-  fronteers.each do |x, y, gear, wait|
+  frontiers.each do |x, y, gear, wait|
     @visited[[x, y, gear]] = true if wait == 0
   end
 
