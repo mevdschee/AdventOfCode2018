@@ -118,25 +118,25 @@ def neighbours_type(fx, fy, type)
 end
 
 def find_closest_neighbour_type(x, y, type)
-  prev_fronteer = {}
-  fronteer = { [x, y] => true }
+  prev_frontier = {}
+  frontier = { [x, y] => true }
 
   loop do
-    result = fronteer.keys.select { |x, y| neighbours_type(x, y, type) }.min_by { |x, y| y * 100 + x }
+    result = frontier.keys.select { |x, y| neighbours_type(x, y, type) }.min_by { |x, y| y * 100 + x }
     return result unless result.nil?
 
-    new_fronteer = {}
-    fronteer.keys.each do |fx, fy|
+    new_frontier = {}
+    frontier.keys.each do |fx, fy|
       [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |dx, dy|
         x = fx + dx
         y = fy + dy
-        new_fronteer[[x, y]] = true unless fronteer[[x, y]] || prev_fronteer[[x, y]] || @walls[[x, y]] || @players[[x, y]]
+        new_frontier[[x, y]] = true unless frontier[[x, y]] || prev_frontier[[x, y]] || @walls[[x, y]] || @players[[x, y]]
       end
     end
-    return nil if new_fronteer.empty?
+    return nil if new_frontier.empty?
 
-    prev_fronteer = fronteer
-    fronteer = new_fronteer
+    prev_frontier = frontier
+    frontier = new_frontier
   end
 end
 
@@ -149,25 +149,25 @@ def neighbours_pos(fx, fy, px, py)
 end
 
 def find_closest_neighbour_pos(x, y, px, py)
-  prev_fronteer = {}
-  fronteer = { [x, y] => true }
+  prev_frontier = {}
+  frontier = { [x, y] => true }
 
   loop do
-    result = fronteer.keys.select { |x, y| neighbours_pos(x, y, px, py) }.min_by { |x, y| y * 100 + x }
+    result = frontier.keys.select { |x, y| neighbours_pos(x, y, px, py) }.min_by { |x, y| y * 100 + x }
     return result unless result.nil?
 
-    new_fronteer = {}
-    fronteer.keys.each do |fx, fy|
+    new_frontier = {}
+    frontier.keys.each do |fx, fy|
       [[-1, 0], [1, 0], [0, -1], [0, 1]].each do |dx, dy|
         x = fx + dx
         y = fy + dy
-        new_fronteer[[x, y]] = true unless fronteer[[x, y]] || prev_fronteer[[x, y]] || @walls[[x, y]] || @players[[x, y]]
+        new_frontier[[x, y]] = true unless frontier[[x, y]] || prev_frontier[[x, y]] || @walls[[x, y]] || @players[[x, y]]
       end
     end
-    return nil if new_fronteer.empty?
+    return nil if new_frontier.empty?
 
-    prev_fronteer = fronteer
-    fronteer = new_fronteer
+    prev_frontier = frontier
+    frontier = new_frontier
   end
 end
 
