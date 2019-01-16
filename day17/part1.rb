@@ -28,23 +28,23 @@ end
 #   end
 # end
 
-def fall(fronteers)
-  new_fronteers = []
-  fronteers.each do |x, y|
+def fall(frontiers)
+  new_frontiers = []
+  frontiers.each do |x, y|
     while @field[[x, y + 1]] == '.'
       y += 1
       break if y > @max_y
 
       @field[[x, y]] = '|'
     end
-    new_fronteers << [x, y] if y <= @max_y && @field[[x, y + 1]] != '|'
+    new_frontiers << [x, y] if y <= @max_y && @field[[x, y + 1]] != '|'
   end
-  new_fronteers
+  new_frontiers
 end
 
-def spread(fronteers)
-  new_fronteers = []
-  fronteers.each do |ox, y|
+def spread(frontiers)
+  new_frontiers = []
+  frontiers.each do |ox, y|
     walls = []
     [-1, 1].each do |dir|
       x = ox
@@ -54,7 +54,7 @@ def spread(fronteers)
         break if '.|'.include?(@field[[x, y + 1]])
       end
       if '.|'.include?(@field[[x, y + 1]])
-        new_fronteers << [x, y]
+        new_frontiers << [x, y]
       else
         walls << [x, y]
       end
@@ -65,9 +65,9 @@ def spread(fronteers)
       @field[[x, y]] = '~'
     end
     @field[[ox, y - 1]] = '|'
-    new_fronteers << [ox, y - 1]
+    new_frontiers << [ox, y - 1]
   end
-  new_fronteers.uniq
+  new_frontiers.uniq
 end
 
 def count_characters(characters)
@@ -77,10 +77,10 @@ def count_characters(characters)
 end
 
 init('input')
-fronteers = [[500, 0]]
-until fronteers.count == 0
-  fronteers = fall(fronteers)
-  fronteers = spread(fronteers)
+frontiers = [[500, 0]]
+until frontiers.count == 0
+  frontiers = fall(frontiers)
+  frontiers = spread(frontiers)
 end
 # print_field
 puts count_characters('~|')
